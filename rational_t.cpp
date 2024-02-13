@@ -8,6 +8,7 @@
 *               "C++ Programming Style Guidelines"
 *               https://geosoft.no/development/cppstyle.html
 */
+
 // Pauta de estilo [92]: comentarios multilínea usando solo "//"
 
 #include "rational_t.hpp"
