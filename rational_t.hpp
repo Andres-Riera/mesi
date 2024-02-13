@@ -1,12 +1,13 @@
-// AUTOR: Andrés David Riera Rivera
-// FECHA: 6 de febrero de 2024
-// EMAIL: alu0101618654@ull.edu.es
-// VERSION: 1.0
-// ASIGNATURA: Algoritmos y Estructuras de Datos
-// PRÁCTICA Nº: 1
-// COMENTARIOS: se indican entre [] las pautas de estilo aplicadas de
-//              "C++ Programming Style Guidelines"
-//              https://geosoft.no/development/cppstyle.html
+/* AUTOR: Andrés David Riera Rivera
+*  FECHA: 6 de febrero de 2024
+*  EMAIL: alu0101618654@ull.edu.es
+*  VERSION: 1.0
+*  ASIGNATURA: Algoritmos y Estructuras de Datos
+*  PRÁCTICA Nº: 1
+*  COMENTARIOS: se indican entre [] las pautas de estilo aplicadas de
+*               "C++ Programming Style Guidelines"
+*               https://geosoft.no/development/cppstyle.html
+*/
 
 // pauta de estilo [92]: comentarios multilínea usando solo "//"
 
@@ -21,8 +22,7 @@
 
 using namespace std;
 
-class rational_t
-{
+class rational_t {
   // pautas de estilos [44] y [73]: primero "public" y después "private"
 public:
   rational_t(const int = 0, const int = 1);
