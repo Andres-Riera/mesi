@@ -1,5 +1,5 @@
 /* AUTOR: Andrés David Riera Rivera
-** FECHA: 6 de febrero de 2024
+*  FECHA: 6 de febrero de 2024
 *  EMAIL: alu0101618654@ull.edu.es
 *  VERSION: 1.0
 *  ASIGNATURA: Algoritmos y Estructuras de Datos
