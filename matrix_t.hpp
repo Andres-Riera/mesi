@@ -184,7 +184,8 @@ void matrix_t<T>::multiply(const matrix_t<T>& A, const matrix_t<T>& B) {
   resize(A.get_m(), B.get_n());
   for (int i = 0; i < m_; i++) {
     for (int j = 0; j < n_; j++) {
-      (i, j) = 
+      for (int k = 0; k < m_; k++) {
+        (i, j) += A(j, k) * B(k, j);
     }
   }
 }
