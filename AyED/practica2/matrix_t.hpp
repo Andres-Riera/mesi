@@ -180,12 +180,14 @@ matrix_t<T>::pos(const int i, const int j) const
 // FASE III: producto matricial
 template<class T>
 void matrix_t<T>::multiply(const matrix_t<T>& A, const matrix_t<T>& B) {
-  assert(A.get_m() == B.get_n() && A.get_n() == B.get_m());
+  assert(A.get_n() == B.get_m());
   resize(A.get_m(), B.get_n());
-  for (int i = 0; i < m_; i++) {
-    for (int j = 0; j < n_; j++) {
-      for (int k = 0; k < m_; k++) {
-        (i, j) += A(j, k) * B(k, j);
+  for (int i = 1; i <= m_; i++) {
+    for (int j = 1; j <= n_; j++) {
+      at(i, j) = 0;
+      for (int k = 1; k <= A.get_n(); k++) {
+        at(i, j) = at(i, j) + A(i, k) * B(k, j);
+      }
     }
   }
 }
