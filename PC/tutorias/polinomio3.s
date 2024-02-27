@@ -73,6 +73,9 @@ for_dentro:
 	add.s $f9, $f6, $f7
 	add.s $f9, $f9, $f8
 	add.s $f9, $f9, $f23
+
+if_condicion:
+
 #    if (f >= 2.1) {
 #      std::cout << "\nf(" << x << ") = " << f;
 #    }

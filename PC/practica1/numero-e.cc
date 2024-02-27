@@ -18,7 +18,7 @@ int main() {
     double f{1.0};
     double ultimo{1.0};
     double terminos{1.0};
-    while (ultimo > error) {
+    while (ultimo >= error) {
         f = f * (terminos);
         ultimo = 1.0 / f;
         e += ultimo;
