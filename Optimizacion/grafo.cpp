@@ -101,12 +101,20 @@ void GRAFO::Info_Grafo()
 
 void Mostrar_Lista(vector<LA_nodo> L)
 {
-
+    for (int i = 0; i < L.size(); i++) {
+        cout << L[i][i].j << " " << L[i][i].c << endl;
+    }
 }
 
 void GRAFO :: Mostrar_Listas (int l)
 {
-
+    if (l == 0) {
+        Mostrar_Lista(LS);
+    } else if (l == 1) {
+        Mostrar_Lista(LS);
+    } else if (l == -1) {
+        Mostrar_Lista(LP);
+    }
 }
 
 void GRAFO::Mostrar_Matriz() //Muestra la matriz de adyacencia, tanto los nodos adyacentes como sus costes
