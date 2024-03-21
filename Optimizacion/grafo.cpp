@@ -38,7 +38,7 @@ void GRAFO :: build (char nombrefichero[85], int &errorapertura)
 		// los nodos internamente se numeran desde 0 a n-1
 		// creamos las n listas de sucesores
 		LS.resize(n);
-        if (dirigido == 1) { LP.resize(n)}
+        if (dirigido == 1) { LP.resize(n); }
         // leemos los m arcos
 		for (k=0;k<m;k++)
         	{
@@ -51,19 +51,19 @@ void GRAFO :: build (char nombrefichero[85], int &errorapertura)
             if (dirigido == 1) {
             //pendiente la construcci�n de LP, si es dirigido
                 dummy.j = i -1;
-                LP[j - 1] = push_back(dummy);
+                LP[j - 1].push_back(dummy);
             } else {
                 if (i != j) {
                     dummy.j = i -1;
-                    LS[j -1] = push_back(dummy); // LS --> lista de adyacencia
+                    LS[j -1].push_back(dummy); // LS --> lista de adyacencia
                 }
             }
 			textfile.close();
             //pendiente del valor a devolver en errorapertura
             errorapertura = 0;
-        } else { errorapertura = 1; }
+        } 
         //...
-    }
+    } else { errorapertura = 1; }
 
 }
 
@@ -138,6 +138,35 @@ void GRAFO::RecorridoProfundidad()
 {
 
 }
+/*
+Recorrido profundidad
+
+1- Definir e inicializar vector de visita de los nodos 
+vector<bool> visitado
+visitado.resize(n, false)
+
+2- Definir e inicializar prenum y postnum
+vector<unsigned> prenum
+prenum.resize(n, c)
+
+3- Definir e inicializar prenum_ind y postnum_ind
+unsigned prenum_ind = 0;
+unsigned postnum_ind = 0;
+
+4- Definir la variable dl nodo inicial i
+unsigned i;
+
+5- Solicitar por pantalla el nodo inicial
+cout << ... << endl
+
+6- Asignamos el valor del nodo inicial i
+cin >> (unsigned SL)i
+
+7- Realizamos el recorrido en profundidad 
+dfs_num(i-1, LS, visitado, prenum, prenum_ind, postnum, postnum_ind)
+
+8- Imprimir en pantalla la información almacenada en prenum y postnum
+*/
 
 void GRAFO::bfs_num(	unsigned i, //nodo desde el que realizamos el recorrido en amplitud
 				vector<LA_nodo>  L, //lista que recorremos, LS o LP; por defecto LS
@@ -174,12 +203,67 @@ void GRAFO::bfs_num(	unsigned i, //nodo desde el que realizamos el recorrido en 
     };
 }
 
-void RecorridoAmplitud(); //Construye un recorrido en amplitud desde un nodo inicial
+/*
+bfs_num
+
+1- Insertamos el nodo inicial en la cola
+cola.push(i)
+
+2- Mientras la cola no esté vacía 
+while(!cola.empty())
+
+(No está vacía) {
+2.1 Tomamos el primer elemento de la cola
+unsigned k = cola.front()
+
+2.2 Sacamos k de la cola
+cola.pop()
+
+2.3 <Para cada sucesor o adyacente> (fin de los sucesores de k -> 2)
+Para j = 0 hasta j < L[k].size
+    (Si visitado(L[k][j].j) == false)
+        * Visitamos j
+        L[k][j].j == true
+
+        * Añadimos j en la cola
+        cola.push[k][j].j
+
+        * Definimos k como predecesor de j
+        pred(L[k][j].j) = k
+
+        * Definimos la distancia de j al nodo inicial
+        d(L[k][j].j) = d[k] + 1
+
+    *Vuelta a 2.3
+
+}
+*/
+
+void RecorridoAmplitud() //Construye un recorrido en amplitud desde un nodo inicial
 {
 
 }
 
+/*
+Recorrido Amplitud
+1- Definir los vectores pred y d
+vector<unsigned> pred
 
+2- Definimos la variable del nodo inicial
+unsigned i
+
+3- Solicitamos por pantalla el nodo inicial
+cout << .. << endl
+
+4- Asignamos el valor del nodo inicial
+cin >> (unsigned) i
+
+5- Realizamos el recorrido en amplitud
+bfs_num(i - 1, LS, pred, d)
+
+6- Imprimimos en pantalla la información de pred y d
+
+*/
 
 
 

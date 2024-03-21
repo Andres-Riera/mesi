@@ -19,14 +19,14 @@ void menu (unsigned dirigido, char &opcion)
             {
             cout << "i. Mostrar [i]nformacion basica del grafo" << endl;
             cout << "a. Mostrar la lista de [a]dyacencia del grafo" << endl;
-	    //Aquí se añaden más opciones al menú del grafo no dirigido
+	    //Aquï¿½ se aï¿½aden mï¿½s opciones al menï¿½ del grafo no dirigido
             }
     else
             {
             cout << "i. Mostrar [i]nformacion basica del grafo" << endl;
             cout << "s. Mostrar la lista de [s]ucesores del grafo" << endl;
             cout << "p. Mostrar la lista de [p]redecesores del grafo" << endl;
-	    //Aquí se añaden más opciones al menú del grafo dirigido
+	    //Aquï¿½ se aï¿½aden mï¿½s opciones al menï¿½ del grafo dirigido
             };
     cout << "q. Finalizar el programa" << endl;
     cout << "Introduce la letra de la accion a ejecutar  > ";
@@ -34,7 +34,7 @@ void menu (unsigned dirigido, char &opcion)
 };
 
 
-// El principal es simplemente un gestor de menu, diferenciando acciones para dirigido y para no dirigido, y un menú inicial si no hay un grafo cargado
+// El principal es simplemente un gestor de menu, diferenciando acciones para dirigido y para no dirigido, y un menï¿½ inicial si no hay un grafo cargado
 int main(int argc, char *argv[])
 {
     int error_apertura;
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
                     clrscr();
                     break;
 
-		 //Situar aquí el resto de opciones del menú
+		 //Situar aquï¿½ el resto de opciones del menï¿½
             }
     }
     while (opcion != 'q');
