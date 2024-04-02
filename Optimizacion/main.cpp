@@ -7,19 +7,42 @@
  */
 
 #include <string.h>
+#include <cstdlib> // For system("pause") in Windows
+
 #include "grafo.h"
+
+
+// Function to clear the screen
+void clrscr() {
+    // Use system dependent command to clear the screen
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
+// Function to wait for user input
+void pressanykey() {
+    cout << "Presione enter para continuar" << endl;
+    std::cin.ignore(); // Ignore any previous newline character
+    std::cin.get();    // Wait for user to press Enter
+}
+
 
 
 void menu (unsigned dirigido, char &opcion)
 //Expresion del menu de opciones segun sea un grafo dirigido o no dirigido
 {
-    cout << "Optimiza!cion en Grafos, 2021-2022 NOMBRE DEL ESTUDIANTE" << endl;
+    cout << "Optimiza!cion en Grafos, 2023-2024 Andrés David Riera Rivera" << endl;
     cout << "c. [c]argar grafo desde fichero" << endl;
     if (dirigido == 0) //Grafo no dirigido
             {
             cout << "i. Mostrar [i]nformacion basica del grafo" << endl;
             cout << "a. Mostrar la lista de [a]dyacencia del grafo" << endl;
 	    //Aqu� se a�aden m�s opciones al men� del grafo no dirigido
+            cout << "m. Realizar un recorrido en a[m]plitud del grafo desde un nodo por sucesores" << endl;
+            cout << "r. Realizar un recorrido en p[r]ofundidad del grafo desde un nodo por sucesores" << endl;
             }
     else
             {
@@ -27,6 +50,8 @@ void menu (unsigned dirigido, char &opcion)
             cout << "s. Mostrar la lista de [s]ucesores del grafo" << endl;
             cout << "p. Mostrar la lista de [p]redecesores del grafo" << endl;
 	    //Aqu� se a�aden m�s opciones al men� del grafo dirigido
+            cout << "m. Realizar un recorrido en a[m]plitud del grafo desde un nodo por sucesores" << endl;
+            cout << "r. Realizar un recorrido en p[r]ofundidad del grafo desde un nodo por sucesores" << endl;
             };
     cout << "q. Finalizar el programa" << endl;
     cout << "Introduce la letra de la accion a ejecutar  > ";
@@ -66,34 +91,129 @@ int main(int argc, char *argv[])
         do
         {
             menu(G.Es_dirigido(), opcion);
-            switch (opcion)
-            {
-                case 'c' :
-                    clrscr();
-         	    cout << "Introduce el nombre completo del fichero de datos" << endl;
-                    cin >> nombrefichero;
-                    G.actualizar(nombrefichero, error_apertura);
-                    if (error_apertura == 1)
-                    {
-                        cout << "Error en la apertura del fichero: revisa nombre y formato : puedes volver a intentarlo" << endl;
-                    }
-                    else
-                    {
-                        cout << "Fichero cargado correctamente desde " << nombrefichero << endl;
-                    };
-                    pressanykey();
-                    clrscr();
-                    break;
+            if (G.Es_dirigido()) {
+                switch (opcion)
+                {
+                 case 'c' :
+                        clrscr();
+         	        cout << "Introduce el nombre completo del fichero de datos" << endl;
+                        cin >> nombrefichero;
+                        G.actualizar(nombrefichero, error_apertura);
+                        if (error_apertura == 1)
+                        {
+                            cout << "Error en la apertura del fichero: revisa nombre y formato : puedes volver a intentarlo" << endl;
+                        }
+                        else
+                        {
+                            cout << "Fichero cargado correctamente desde " << nombrefichero << endl;
+                        };
+                        pressanykey();
+                        clrscr();
+                        break;
 
-                case 'i' :
-                    clrscr();
-		    cout << "Grafo cargado desde " << nombrefichero << endl;
-                    G.Info_Grafo();
-                    pressanykey();
-                    clrscr();
-                    break;
+                    case 'i' :
+                        clrscr();
+		                cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.Info_Grafo();
+                        pressanykey();
+                        clrscr();
+                        break;
 
-		 //Situar aqu� el resto de opciones del men�
+                    case 's' :
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.Mostrar_Listas(1);
+                        pressanykey();
+                        clrscr();
+                        break;
+
+                    case 'p' :
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.Mostrar_Listas(-1);
+                        pressanykey();
+                        clrscr();
+                        break;
+                    
+                    case 'm' :
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.RecorridoAmplitud();
+                        pressanykey();
+                        clrscr();
+                        break;
+                    
+                    case 'r' :
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.RecorridoProfundidad();
+                        pressanykey();
+                        clrscr();
+                        break;
+
+                    case 'q' :
+                        break;
+                    
+                    default :
+                        cout << "Opción inválida" << endl;
+                        pressanykey();
+                        clrscr();
+                        break;
+                }
+            } else {
+              switch (opcion)
+                {
+                 case 'c' :
+                        clrscr();
+         	        cout << "Introduce el nombre completo del fichero de datos" << endl;
+                        cin >> nombrefichero;
+                        G.actualizar(nombrefichero, error_apertura);
+                        if (error_apertura == 1)
+                        {
+                            cout << "Error en la apertura del fichero: revisa nombre y formato : puedes volver a intentarlo" << endl;
+                        }
+                        else
+                        {
+                            cout << "Fichero cargado correctamente desde " << nombrefichero << endl;
+                        };
+                        pressanykey();
+                        clrscr();
+                        break;
+
+                    case 'i' :
+                        clrscr();
+		                cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.Info_Grafo();
+                        pressanykey();
+                        clrscr();
+                        break;
+
+                    case 'a' :
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.Mostrar_Listas(0);
+                        pressanykey();
+                        clrscr();
+                        break;
+                    
+                    case 'm' :
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.RecorridoAmplitud();
+                        pressanykey();
+                        clrscr();
+                        break;
+                    
+                    case 'r' :
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.RecorridoProfundidad();
+                        pressanykey();
+                        clrscr();
+                        break;
+                    
+                    case 'q' :
+                        break;
+
+                    default :
+                        cout << "Opción inválida" << endl;
+                        pressanykey();
+                        clrscr();
+                        break;
+                }
             }
     }
     while (opcion != 'q');
