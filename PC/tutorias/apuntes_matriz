@@ -1,0 +1,47 @@
+# Asignación registros
+# numFil $s0
+# numCol $s1
+# mat $s3
+# f $s4
+# c $s5
+# valor $s6
+
+# int valor = mat[f][c];
+
+	mul	$t0,$s4,$s1	# f * NumCol
+	addu	$t0,$t0,$s5	# (f * NumCol + C)
+	mul	$t0,$t0,sizeW	# (f * NumCol + C) * tamElem
+	addu	$t0,$s3,$t0	# dirBase + (f * NumCol + C) * tamElem
+tamElem
+
+	lw $s6,0($t0)
+
+# structMat* matTrabajo = &mat1;
+# matTrabajo -> $s0
+    la  $s0,mat1
+    
+# if ((indFil < 0) || (indFil >= matTrabajo->nFil))
+	lw	$t0,0($s0)	# $t0 = matTrabajo->nFil
+
+# 133 if ((indCol < 0) || (indCol >= matTrabajo->nCol))
+	lw 	$t1,nCol($s0)	# $t1 = matTrabajo->nCol (nCol = 4)
+
+# 77 float* elem = mat->elementos;
+# mat -> xx -> $s0
+# nFil $s1
+# nCol $s2
+# elem $s3
+# f $s4
+# c $s5
+	la	$s3,8($s0) # sol 1
+# sol 2
+# addi	$s3,$s0,elementos (elementos = 8)
+
+# 81 elem[f*nCol + c]
+	# $t1 = elem[f*nCol + c]
+	mul	$t0,$s4,$s2
+	addu	$t0,$t0,$s5
+	mul	$t0,$t0,sizeF
+	addu	$t0,$s3,$t0
+	
+	l.s	$f4,0($t0)
