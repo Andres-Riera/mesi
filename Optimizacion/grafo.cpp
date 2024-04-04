@@ -164,7 +164,11 @@ void GRAFO::Mostrar_Matriz() { //Muestra la matriz de adyacencia, tanto los nodo
                     break;
                 }
             }
-            cout << c << " ";
+            if (c != maxint) {
+                cout << c << " ";
+            } else {
+                cout << "INF ";
+            }
         }
         cout << "|" << endl;
     }
@@ -243,14 +247,14 @@ void GRAFO::bfs_num(	unsigned i, //nodo desde el que realizamos el recorrido en 
         //Hacemos el recorrido sobre L desde el nodo k+1
         for (unsigned j=0;j<L[k].size();j++)
             //Recorremos todos los nodos u adyacentes al nodo k+1
-            //Si el nodo u no est� visitado
+            //Si el nodo u no est� visitado 
             if (!visitado[L[k][j].j]){
             //Lo visitamos
                 L[k][j].j == true;
             //Lo metemos en la cola
                 cola.push(L[k][j].j);
             //le asignamos el predecesor
-                pred[L[k][j].j] = k + 1;
+                pred[L[k][j].j] = k;
             //le calculamos su etiqueta distancia
                 d[L[k][j].j] = d[k] + 1;
             };
@@ -276,7 +280,7 @@ void GRAFO::RecorridoAmplitud() //Construye un recorrido en amplitud desde un no
     cout << "Nodo inicial: " << i << endl;
     cout << "\nNodos según distancia al nodo inicial en número de aristas" << i << endl;
     bool first = true;
-    for (int k = 0; k <= d[d.size() - 1]; k++) {
+    for (int k = 0; k <= d[d.size() - 1]; ++k) {
         cout << "Distancia " << k << " aristas : ";
         for (int j = 0; j < d.size(); j++) {
             if (k == d[j] && k == 0 && first) {
@@ -293,18 +297,9 @@ void GRAFO::RecorridoAmplitud() //Construye un recorrido en amplitud desde un no
         cout << endl;
     }
     cout << "Ramas de conexión en el recorrido" << endl;
-    for (unsigned k = pred.size() - 1; k > 0; k--) {
-        if (pred[k] != k) {
-            cout << i;
-            MostrarCamino(i, k, pred);
-            cout << endl;
-        }
+    for (unsigned k = 1; k < pred.size(); k++) {
+        cout << k + 1 << " - ";
+        cout << pred[k]+1 << endl;
     }
-}
-
-void GRAFO::MostrarCamino(unsigned i, unsigned j, vector<unsigned>& pred) {
-    if (i - 1 != j && i != j) {
-        MostrarCamino(i, pred[j], pred);
-        cout << " -> " << j + 1;
-    } 
+    cout << endl;    
 }
