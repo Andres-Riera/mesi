@@ -38,6 +38,7 @@ void GRAFO :: build (char nombrefichero[85], int &errorapertura)
 		// los nodos internamente se numeran desde 0 a n-1
 		// creamos las n listas de sucesores
 		LS.resize(n);
+        A.resize(n);
         if (dirigido == 1) { LP.resize(n); }
         // leemos los m arcos
 		for (k=0;k<m;k++)
@@ -47,14 +48,15 @@ void GRAFO :: build (char nombrefichero[85], int &errorapertura)
             dummy.j = j - 1;
 			//situamos en la posici�n del nodo i a dummy mediante push_back
             LS[i - 1].push_back(dummy);
+            A[i - 1].push_back(dummy);
+            dummy.j = i -1;
+            A[j -1].push_back(dummy);
 			//pendiente de hacer un segundo push_back si es no dirigido. O no.
             if (dirigido == 1) {
             //pendiente la construcci�n de LP, si es dirigido
-                dummy.j = i -1;
                 LP[j - 1].push_back(dummy);
             } else {
                 if (i != j) {
-                    dummy.j = i -1;
                     LS[j -1].push_back(dummy); // LS --> lista de adyacencia
                 }
             }
@@ -130,10 +132,45 @@ void GRAFO :: Mostrar_Listas (int l)
     }
 }
 
-void GRAFO::Mostrar_Matriz() //Muestra la matriz de adyacencia, tanto los nodos adyacentes como sus costes
-{
+void GRAFO::Mostrar_Matriz() { //Muestra la matriz de adyacencia, tanto los nodos adyacentes como sus costes
+    cout << "Matriz de adyacencia:" << endl;
+    for (unsigned k = 0; k < A.size(); k++) {
+        cout << "| ";
+        for (unsigned j = 0; j < A.size(); j++) {
+            bool adyacente = false;
+            for (const auto& elemento : A[k]) {
+                if (elemento.j == j) {
+                    adyacente = true;
+                    break;
+                }
+            }
+            if (adyacente) {
+                cout << "1 ";
+            } else {
+                cout << "0 ";
+            }
+        }
+        cout << "|" << endl;
+    }
 
+    cout << "Matriz de costos:" << endl;
+    for (unsigned k = 0; k < A.size(); k++) {
+        cout << "| ";
+        for (unsigned j = 0; j < A.size(); j++) {
+            int c = maxint;
+            for (const auto& aux : A[k]) {
+                if (aux.j == j) {
+                    c = aux.c;
+                    break;
+                }
+            }
+            cout << c << " ";
+        }
+        cout << "|" << endl;
+    }
 }
+
+
 
 void GRAFO::dfs_num(unsigned i, vector<LA_nodo>  L, vector<bool> &visitado, vector<unsigned> &prenum, unsigned &prenum_ind, vector<unsigned> &postnum, unsigned &postnum_ind) //Recorrido en profundidad recursivo con recorridos enum y postnum
 {
@@ -213,7 +250,7 @@ void GRAFO::bfs_num(	unsigned i, //nodo desde el que realizamos el recorrido en 
             //Lo metemos en la cola
                 cola.push(L[k][j].j);
             //le asignamos el predecesor
-                pred[L[k][j].j] = k;
+                pred[L[k][j].j] = k + 1;
             //le calculamos su etiqueta distancia
                 d[L[k][j].j] = d[k] + 1;
             };
@@ -238,23 +275,36 @@ void GRAFO::RecorridoAmplitud() //Construye un recorrido en amplitud desde un no
     // 6- Imprimimos en pantalla la información de pred y d
     cout << "Nodo inicial: " << i << endl;
     cout << "\nNodos según distancia al nodo inicial en número de aristas" << i << endl;
+    bool first = true;
     for (int k = 0; k <= d[d.size() - 1]; k++) {
         cout << "Distancia " << k << " aristas : ";
-        for (int l = 0; l < d.size(); l++) {
-            if (d[l] == k) {
-                cout << pred[l] + 1 << " "; // Agrega 1 ya que los nodos están numerados desde 1
+        for (int j = 0; j < d.size(); j++) {
+            if (k == d[j] && k == 0 && first) {
+                cout << j + 1 << " ";
+                first = false;
+            }
+            else if (k == d[j] && k == 0 && !first) {
+
+            }
+            else if (k == d[j]) {
+                cout << j + 1 << " ";
             }
         }
         cout << endl;
     }
-
-
-    for (int j = 1; j < pred.size(); j++) {
-        int current_node = j + 1; // Nodos numerados desde 1
-        if (pred[j] != 0) {
-            int predecessor_node = pred[j] + 1; // Nodos numerados desde 1
-            cout << predecessor_node << " - " << current_node << endl;
+    cout << "Ramas de conexión en el recorrido" << endl;
+    for (unsigned k = pred.size() - 1; k > 0; k--) {
+        if (pred[k] != k) {
+            cout << i;
+            MostrarCamino(i, k, pred);
+            cout << endl;
         }
     }
 }
 
+void GRAFO::MostrarCamino(unsigned i, unsigned j, vector<unsigned>& pred) {
+    if (i - 1 != j && i != j) {
+        MostrarCamino(i, pred[j], pred);
+        cout << " -> " << j + 1;
+    } 
+}

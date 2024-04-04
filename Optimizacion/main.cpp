@@ -40,7 +40,8 @@ void menu (unsigned dirigido, char &opcion)
             {
             cout << "i. Mostrar [i]nformacion basica del grafo" << endl;
             cout << "a. Mostrar la lista de [a]dyacencia del grafo" << endl;
-	    //Aqu� se a�aden m�s opciones al men� del grafo no dirigido
+	        //Aqu� se a�aden m�s opciones al men� del grafo no dirigido
+            cout << "y. Mostrar la matriz de ad[y]acencia del grafo" << endl;
             cout << "m. Realizar un recorrido en a[m]plitud del grafo desde un nodo por sucesores" << endl;
             cout << "r. Realizar un recorrido en p[r]ofundidad del grafo desde un nodo por sucesores" << endl;
             }
@@ -49,7 +50,8 @@ void menu (unsigned dirigido, char &opcion)
             cout << "i. Mostrar [i]nformacion basica del grafo" << endl;
             cout << "s. Mostrar la lista de [s]ucesores del grafo" << endl;
             cout << "p. Mostrar la lista de [p]redecesores del grafo" << endl;
-	    //Aqu� se a�aden m�s opciones al men� del grafo dirigido
+	        //Aqu� se a�aden m�s opciones al men� del grafo dirigido
+            cout << "y. Mostrar la matriz de ad[y]acencia del grafo" << endl;
             cout << "m. Realizar un recorrido en a[m]plitud del grafo desde un nodo por sucesores" << endl;
             cout << "r. Realizar un recorrido en p[r]ofundidad del grafo desde un nodo por sucesores" << endl;
             };
@@ -86,7 +88,6 @@ int main(int argc, char *argv[])
     else
     {
         cout<< "Grafo cargado desde el fichero " << nombrefichero << endl;
-        pressanykey();
         clrscr();
         do
         {
@@ -120,6 +121,7 @@ int main(int argc, char *argv[])
                         break;
 
                     case 's' :
+                        clrscr();
                         cout << "Grafo cargado desde " << nombrefichero << endl;
                         G.Mostrar_Listas(1);
                         pressanykey();
@@ -127,6 +129,7 @@ int main(int argc, char *argv[])
                         break;
 
                     case 'p' :
+                        clrscr();
                         cout << "Grafo cargado desde " << nombrefichero << endl;
                         G.Mostrar_Listas(-1);
                         pressanykey();
@@ -134,6 +137,7 @@ int main(int argc, char *argv[])
                         break;
                     
                     case 'm' :
+                        clrscr();
                         cout << "Grafo cargado desde " << nombrefichero << endl;
                         G.RecorridoAmplitud();
                         pressanykey();
@@ -141,8 +145,17 @@ int main(int argc, char *argv[])
                         break;
                     
                     case 'r' :
+                        clrscr();
                         cout << "Grafo cargado desde " << nombrefichero << endl;
                         G.RecorridoProfundidad();
+                        pressanykey();
+                        clrscr();
+                        break;
+                    
+                    case 'y' :
+                        clrscr();
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.Mostrar_Matriz();
                         pressanykey();
                         clrscr();
                         break;
@@ -185,6 +198,7 @@ int main(int argc, char *argv[])
                         break;
 
                     case 'a' :
+                        clrscr();
                         cout << "Grafo cargado desde " << nombrefichero << endl;
                         G.Mostrar_Listas(0);
                         pressanykey();
@@ -192,6 +206,7 @@ int main(int argc, char *argv[])
                         break;
                     
                     case 'm' :
+                        clrscr();
                         cout << "Grafo cargado desde " << nombrefichero << endl;
                         G.RecorridoAmplitud();
                         pressanykey();
@@ -199,16 +214,27 @@ int main(int argc, char *argv[])
                         break;
                     
                     case 'r' :
+                        clrscr();
                         cout << "Grafo cargado desde " << nombrefichero << endl;
                         G.RecorridoProfundidad();
                         pressanykey();
                         clrscr();
                         break;
                     
+                    case 'y' :
+                        clrscr();
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.Mostrar_Matriz();
+                        pressanykey();
+                        clrscr();
+                        break;
+                    
                     case 'q' :
+                        clrscr();
                         break;
 
                     default :
+                        clrscr();
                         cout << "Opción inválida" << endl;
                         pressanykey();
                         clrscr();
