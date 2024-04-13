@@ -45,3 +45,9 @@ tamElem
 	addu	$t0,$s3,$t0
 	
 	l.s	$f4,0($t0)
+
+
+# 09 Abril
+# Una rutina no puede modificar $s#, $sp
+# Si la rutina no llama a otra rutina usamos temporales $t1...
+# Si la rutina llama a otra rutina -> necesita preservar entre llamadas -> necesita una $s#

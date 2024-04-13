@@ -305,3 +305,26 @@ void GRAFO::RecorridoAmplitud() //Construye un recorrido en amplitud desde un no
     }
     cout << endl;    
 }
+
+void GRAFO::Kruskal() {
+    vector <AristaPesada> Aristas;
+    // Cargamos todas las aristas de la lista de adyacencia
+    Aristas.resize(m);
+    unsigned k = 0;
+    for (unsigned i = 0; i<n; i++) {
+        for (unsigned j=0; j<LS[i].size();j++) {
+            if (i < LS[i][j].j) {
+                Aristas[k].extremo1 = i;
+                Aristas[k].extremo2 = LS[i][j].j;
+                Aristas[k++].peso = LS[i][j].c;
+            }
+        }
+    };
+
+    // Inicializamos el registro de componentes conexas: cada nodo está en su componente conexa
+    vector <unsigned> Raiz;
+    Raiz.resize(n);
+    for (unsigned q = 0;q < n; q++) {
+        Raiz[q]=q;
+    };
+}
