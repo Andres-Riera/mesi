@@ -44,6 +44,7 @@ void menu (unsigned dirigido, char &opcion)
             cout << "y. Mostrar la matriz de ad[y]acencia del grafo" << endl;
             cout << "m. Realizar un recorrido en a[m]plitud del grafo desde un nodo por sucesores" << endl;
             cout << "r. Realizar un recorrido en p[r]ofundidad del grafo desde un nodo por sucesores" << endl;
+            cout << "k. Mostrar arbol generador minimo coste, [k]ruskal" << endl;
             }
     else
             {
@@ -225,6 +226,14 @@ int main(int argc, char *argv[])
                         clrscr();
                         cout << "Grafo cargado desde " << nombrefichero << endl;
                         G.Mostrar_Matriz();
+                        pressanykey();
+                        clrscr();
+                        break;
+
+                    case 'k' :
+                        clrscr();
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.Kruskal();
                         pressanykey();
                         clrscr();
                         break;

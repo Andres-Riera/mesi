@@ -1,6 +1,6 @@
-// AUTOR: Andrés David Riera Rivera
-// FECHA: 08 Abril 2023
-// EMAIL: alu0101618654@ull.edu.es
+// AUTOR: 
+// FECHA: 
+// EMAIL: 
 // VERSION: 2.0
 // ASIGNATURA: Algoritmos y Estructuras de Datos
 // PRÁCTICA Nº: 5

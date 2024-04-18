@@ -324,7 +324,46 @@ void GRAFO::Kruskal() {
     // Inicializamos el registro de componentes conexas: cada nodo está en su componente conexa
     vector <unsigned> Raiz;
     Raiz.resize(n);
-    for (unsigned q = 0;q < n; q++) {
+    for (unsigned q = 0; q < n; q++) {
         Raiz[q]=q;
     };
+
+    int head = 0;
+    int n_aristas = 0;
+    int peso_total = 0;
+    do {
+        // Colocamos en la posición head la arista con menor peso a desde head + 1
+        if(head < m - 1) {
+            for (unsigned i = head + 1; i < m; i++) {
+                if(Aristas[head].peso > Aristas[i].peso) {
+                    AristaPesada temp = Aristas[i];
+                    Aristas[i] = Aristas[head];
+                    Aristas[head] = temp;
+                    break;
+                }
+            }
+        }
+
+        // Si los extremos de las aristas tienen distinta raíz actualizamos la raíz de uno de ellos
+        if(Raiz[Aristas[head].extremo1] != Raiz[Aristas[head].extremo2]) {
+            unsigned kill = Raiz[Aristas[head].extremo1];
+            for (unsigned i = 0; i < n - 1; i++) {
+                if (Raiz[i] == kill) {
+                    Raiz[i] = Raiz[Aristas[head].extremo2];
+                }
+            }
+            // Incorporamos la arista
+            cout << "Arista número " << ++n_aristas << " incorporada (" << Aristas[head].extremo1 + 1 << ", " 
+                 << Aristas[head].extremo2 + 1 << ") con peso " << Aristas[head].peso << endl;
+            peso_total += Aristas[head].peso;
+        }
+
+        head++;
+    } while (head < m && n_aristas < n - 1);
+    
+    if (n_aristas  == n - 1) {
+        cout << "El peso del arbol generador de mínimo coste es " << peso_total << endl;
+    } else {
+        cout << "El grafo no es conexo y el árbol generador de mínimo coste tiene peso " << peso_total << endl;
+    }
 }

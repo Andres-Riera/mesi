@@ -1,6 +1,6 @@
-// AUTOR: 
-// FECHA: 
-// EMAIL: 
+// AUTOR: Andrés David Riera Rivera
+// FECHA: 08 Abril 2023
+// EMAIL: alu0101618654@ull.edu.es
 // VERSION: 2.0
 // ASIGNATURA: Algoritmos y Estructuras de Datos
 // PRÁCTICA Nº: 5
@@ -42,6 +42,9 @@ int main(void) {
 
   int r = calculadora.evaluate(cola);
   cout << "Resultado: " << r << endl;
+  cout << "Número de resultados: ";
+  calculadora.print_n_results();
+  cout << endl;
 
   return 0;
 }

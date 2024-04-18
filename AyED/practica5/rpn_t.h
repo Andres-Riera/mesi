@@ -1,6 +1,6 @@
-// AUTOR: 
-// FECHA: 
-// EMAIL: 
+// AUTOR: Andrés David Riera Rivera
+// FECHA: 08 Abril 2023
+// EMAIL: alu0101618654@ull.edu.es
 // VERSION: 2.0
 // ASIGNATURA: Algoritmos y Estructuras de Datos
 // PRÁCTICA Nº: 5
@@ -21,17 +21,19 @@
 template <class T> class rpn_t {
  public:
   // constructor
- rpn_t(void) : stack_() {}
+ rpn_t(void) : stack_(), n_results_(0) {}
 
   // destructor
   ~rpn_t() {}
 
   // operaciones
   const int evaluate(queue_l_t<char>&);
+  void print_n_results();
 
  private: 
   T stack_;
   void operate_(const char operador);
+  int n_results_;
 };
 
 
@@ -110,6 +112,11 @@ template<class T> void rpn_t<T>::operate_(const char c) {
 
   // poner código
   std::cout << "   Metemos en la pila el resultado: " << stack_.top() << std::endl;
+  n_results_++;
+}
+
+template<class T> void rpn_t<T>::print_n_results() {
+  std::cout << n_results_;
 }
 
  
