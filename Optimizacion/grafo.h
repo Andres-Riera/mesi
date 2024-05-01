@@ -50,7 +50,7 @@ class GRAFO
 	void dfs_num(unsigned i, vector<LA_nodo>  L, vector<bool> &visitado, vector<unsigned> &prenum, 
 	             unsigned &prenum_ind, vector<unsigned> &postnum, unsigned &postnum_ind); //Recorrido en profundidad recursivo con recorridos enum y postnum
   void bfs_num(unsigned i, vector<LA_nodo>  L, vector<unsigned> &pred, vector<unsigned> &d); //Recorrido en amplitud con c�lculo de pred y d
-	
+	void MostrarCamino(unsigned s, unsigned i, vector<unsigned>& pred);
 
 public:
      GRAFO(char nombrefichero[], int &errorapertura);
@@ -62,7 +62,10 @@ public:
      void RecorridoProfundidad(); //Construye un recorrido en profundidad desde un nodo inicial
      void RecorridoAmplitud(); //Construye un recorrido en amplitud desde un nodo inicial
 		 void Kruskal();	
+		 void PDM();
      ~GRAFO(); //Destructor del objeto grafo
 };
+
+
 
 #endif

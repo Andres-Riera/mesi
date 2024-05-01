@@ -224,12 +224,12 @@ void GRAFO::RecorridoProfundidad()
     cout << endl;
 }
 
+//Recorrido en amplitud con la construcci�n de pred y d: usamos la cola
 void GRAFO::bfs_num(	unsigned i, //nodo desde el que realizamos el recorrido en amplitud
 				vector<LA_nodo>  L, //lista que recorremos, LS o LP; por defecto LS
 				vector<unsigned> &pred, //vector de predecesores en el recorrido
-				vector<unsigned> &d) //vector de distancias a nodo i+1
-//Recorrido en amplitud con la construcci�n de pred y d: usamos la cola
-{
+				vector<unsigned> &d) //vector de distancias a nodo i+1 
+                {
     vector<bool> visitado; //creamos e iniciamos el vector visitado
     visitado.resize(n, false);
     visitado[i] = true;
@@ -322,7 +322,7 @@ void GRAFO::Kruskal() {
     };
 
     // Inicializamos el registro de componentes conexas: cada nodo está en su componente conexa
-    vector <unsigned> Raiz;
+    vector<unsigned> Raiz;
     Raiz.resize(n);
     for (unsigned q = 0; q < n; q++) {
         Raiz[q]=q;
@@ -332,14 +332,13 @@ void GRAFO::Kruskal() {
     int n_aristas = 0;
     int peso_total = 0;
     do {
-        // Colocamos en la posición head la arista con menor peso a desde head + 1
+        // Colocamos en la posición head la arista con menor peso desde head + 1
         if(head < m - 1) {
             for (unsigned i = head + 1; i < m; i++) {
                 if(Aristas[head].peso > Aristas[i].peso) {
                     AristaPesada temp = Aristas[i];
                     Aristas[i] = Aristas[head];
                     Aristas[head] = temp;
-                    break;
                 }
             }
         }
@@ -364,6 +363,122 @@ void GRAFO::Kruskal() {
     if (n_aristas  == n - 1) {
         cout << "El peso del arbol generador de mínimo coste es " << peso_total << endl;
     } else {
-        cout << "El grafo no es conexo y el árbol generador de mínimo coste tiene peso " << peso_total << endl;
+        cout << "El grafo no es conexo y el bosque generador de mínimo coste tiene peso " << peso_total << endl;
+    }
+}
+
+/*
+Tests de circuitos de coste negativo
+
+Si no hay -> camino óptimo
+es elemental (no repite nodo) -> a lo sumo usa n - 1 arcos
+eoc
+Definir 
+Cmin = min {Cij : Cij < 0}
+El menor valor posible de di es (n - 1) Cmin
+->  Si algún di < (n - 1) Cmin -> con seguridad hay un circuito de coste negativo
+*/
+
+void GRAFO::PDM() {
+    deque<unsigned> dcola;
+    vector<int> d;
+    vector<unsigned> pred;
+    vector<bool> Encola;
+    unsigned s;
+    bool Negativo = false;
+    int Cmin = 0;
+
+    for (LA_nodo j : LS) {
+        if (!j.empty()) {
+            for (ElementoLista l : j) {
+                if (l.c < Cmin) {
+                    Cmin = l.c;
+                } 
+            }
+        }
+    }
+
+    //Inicialmente no hay ningun nodo permanentemente etiquetado
+    Encola.resize(n,false);
+    //Inicialmente todas las etiquetas distancias son infinito
+    d.resize(n,maxint);
+    //Inicialmente el pred es null
+    pred.resize(n,0);
+    //- Pedimos por pantalla el nodo de partida s.
+    cout << "Introduce el nodo de salida" << endl;
+    cin >> s;
+    s = s - 1;
+    //La etiqueta distancia del nodo s es 0, y es su propio pred
+    d[s]=0; pred[s]=s;
+    //añadimos s a dcola y actualizamos Encola
+    dcola.push_back(s); Encola[s] = true;
+    while (!dcola.empty() && !Negativo) {
+         //- Sacamos el primer nodo, k, de la dcola y lo borramos. Debemos actualizar también Encola.
+         unsigned k = dcola.front();
+         dcola.pop_front();
+         Encola[k] = false;
+        /*- Recorremos la lista de sucesores que permite identificar los arcos (k,
+        j). Si d[j] > d[k] + ckj para el arco (k, j) significa que podemos mejorar
+        el camino actual hacía el nodo j pasando por k. Para ello actualizamos d
+        y pred y debemos añadir el nodo j en la cola siempre que no esté en ella.
+        Ojo, hay que distinguir cuando se añade al final o al principio de la
+        dcola. Es decir, seguir el siguiente pseudo-código.
+        - */
+        // Para todo nodo j sucesor del nodo k Hacer
+        for (ElementoLista aux : LS[k]) {
+            unsigned j = aux.j;
+            // Si (dj > dk + ckj) entonces {
+            if (d[j] > d[k] + aux.c) {
+                // si el nodo j nunca ha estado en la cola
+                // Si (predj == 0) entonces
+                if (pred[j] == 0) {
+                    // InsertarEnCola(j,dcola);  final de cola
+                    dcola.push_back(j);
+                    Encola[j] = true;
+                }
+                // en otro caso  ya ha estado en la cola
+                else {
+                    // si NoEstaEnCola(j, dcola)entonces
+                    if (Encola[j] == false) {
+                        // IsertarPrincipioCola(j, dcola);
+                        dcola.push_front(j);
+                        Encola[j] = true;
+                    }
+                }
+                // dj = dk + ckj; predj = k; Actualizar Encola;
+                d[j] = d[k] + aux.c; 
+                pred[j] = k;
+                if (d[j] < 0 && d[j] < Cmin) {
+                    Negativo = true;
+                    break;
+                }
+            }
+        }
+    }
+
+// En esta parte del código, mostramos los caminos mínimos para cada nodo si
+// los hay, y siempre y cuando no haya circuitos de coste negativo.
+    if (!Negativo) {
+        cout << "Soluciones:" << endl;
+        for (int j = 0; j < n; j++) {
+            if (j != s) {
+                cout << "El camino del nodo " << s + 1 << " al nodo " << j + 1 << " es : ";
+                MostrarCamino(s, j, pred);
+                cout << " de longitud " << d[j] << endl;
+            }
+        }
+    } else {
+        cout << "Existe al menos un circuito de coste negativo en el grafo\n";
+    }
+}
+
+
+void GRAFO::MostrarCamino(unsigned s, unsigned i, vector<unsigned>& pred) {
+    if (i != s) {
+        MostrarCamino(s,pred[i],pred);
+        cout << " -> " << i + 1;
+    }
+    else {
+        cout << i + 1;
     }
 }

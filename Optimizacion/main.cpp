@@ -55,6 +55,7 @@ void menu (unsigned dirigido, char &opcion)
             cout << "y. Mostrar la matriz de ad[y]acencia del grafo" << endl;
             cout << "m. Realizar un recorrido en a[m]plitud del grafo desde un nodo por sucesores" << endl;
             cout << "r. Realizar un recorrido en p[r]ofundidad del grafo desde un nodo por sucesores" << endl;
+            cout << "x. Caminos minimos: Modificacion de Pape y Dsopo" << endl;
             };
     cout << "q. Finalizar el programa" << endl;
     cout << "Introduce la letra de la accion a ejecutar  > ";
@@ -157,6 +158,14 @@ int main(int argc, char *argv[])
                         clrscr();
                         cout << "Grafo cargado desde " << nombrefichero << endl;
                         G.Mostrar_Matriz();
+                        pressanykey();
+                        clrscr();
+                        break;
+                    
+                    case 'x' :
+                        clrscr();
+                        cout << "Grafo cargado desde " << nombrefichero << endl;
+                        G.PDM();
                         pressanykey();
                         clrscr();
                         break;
