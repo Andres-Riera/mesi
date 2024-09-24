@@ -100,6 +100,8 @@ void GRAFO::Info_Grafo()
     } else { cout << "El grafo es no dirigido\n"; }
     cout << "Número de nodos: " << n << endl;
     cout << "Número de arcos: " << m << endl;
+    cout << LS[0][0].c << endl;
+    
 }
 
 void Mostrar_Lista(vector<LA_nodo> L)
@@ -448,7 +450,7 @@ void GRAFO::PDM() {
                 // dj = dk + ckj; predj = k; Actualizar Encola;
                 d[j] = d[k] + aux.c; 
                 pred[j] = k;
-                if (d[j] < 0 && d[j] < Cmin) {
+                if (d[j] < 0 && d[j] < Cmin * (n - 1)) {
                     Negativo = true;
                     break;
                 }

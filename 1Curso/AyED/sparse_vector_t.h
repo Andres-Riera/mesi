@@ -122,6 +122,7 @@ const pair_double_t& sparse_vector_t::operator[](const int i) const {
   return at(i);
 }
 
+
 // E/S
 void sparse_vector_t::write(std::ostream& os) const { 
   os << get_n() << "(" << get_nz() << "): [ ";
