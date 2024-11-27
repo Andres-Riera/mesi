@@ -1,0 +1,63 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Thu Nov 21 06:50:23 2024
+[*]
+[dumpfile] "/home/andres_riera/mesi/2Curso/EC/Ficheros/microc_tb.vcd"
+[dumpfile_mtime] "Thu Nov 21 06:45:27 2024"
+[dumpfile_size] 5468
+[savefile] "/home/andres_riera/mesi/2Curso/EC/Ficheros/ay.gtkw"
+[timestart] 0
+[size] 1908 987
+[pos] 32735 32735
+*-15.165843 73300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] microc_tb.
+[treeopen] microc_tb.Camino_Datos.
+[sst_width] 214
+[signals_width] 173
+[sst_expanded] 1
+[sst_vpaned_height] 287
+@28
+microc_tb.clk
+microc_tb.reset
+@200
+-
+-PC
+@24
+microc_tb.Camino_Datos.dir[9:0]
+@22
+microc_tb.Camino_Datos.new_dir[9:0]
+@200
+-
+-Entradas UC
+@28
+microc_tb.Opcode[5:0]
+microc_tb.z
+@200
+-
+-Salidas UC
+@28
+microc_tb.s_inc
+microc_tb.s_inm
+microc_tb.we3
+microc_tb.wez
+@22
+microc_tb.Camino_Datos.instruccion[15:0]
+@28
+microc_tb.Camino_Datos.Op[2:0]
+@200
+-
+@22
+microc_tb.Camino_Datos.reg1[7:0]
+microc_tb.Camino_Datos.reg2[7:0]
+microc_tb.Camino_Datos.registros.WD3[7:0]
+@25
+microc_tb.Camino_Datos.registros.RA1[3:0]
+@24
+microc_tb.Camino_Datos.registros.RA2[3:0]
+microc_tb.Camino_Datos.registros.WA3[3:0]
+@22
+microc_tb.Camino_Datos.S[7:0]
+@200
+-
+[pattern_trace] 1
+[pattern_trace] 0

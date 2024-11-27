@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "Bienvenido $USER"
+echo
+
+ruta_du() {
+
+  if [ $(which du) ]; then
+    which du
+    else
+    echo "No se encontró la ruta de du"
+    exit 1
+  fi
+}
+
+
+info_home() {
+
+  du -c $HOME | tail -n1 | cut -f1
+
+}
+
+ruta_du
+info_home

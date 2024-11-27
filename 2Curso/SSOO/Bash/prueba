@@ -1,0 +1,17 @@
+#!/bin/bash
+
+procesos() {
+ps -eo sid,pgid,pid,user,tty,%mem,cmd --sort user --noheader | awk 'BEGIN {printf "%-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", "SID", "PGID", "PID", "USER", "TTY", "%MEM", "CMD"} {printf "%-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", $1, $2, $3, $4, $5, $6, $7}'
+}
+
+proc="$(procesos)"
+
+proc="$(echo "$proc" | awk '$1 > 0 {printf "%-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", $1, $2, $3, $4, $5, $6, $7}')"
+
+eo=$(( 0 ))
+colores=()
+colores[eo]=a
+eo=$(( $eo + 1 ))
+colores[eo]=b
+echo ${colores[0]}
+echo ${colores[1]}

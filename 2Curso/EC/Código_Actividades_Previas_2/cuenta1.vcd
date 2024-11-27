@@ -1,0 +1,902 @@
+$date
+	Wed Nov 20 23:38:22 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	10ps
+$end
+$scope module cuenta1_tb $end
+$var wire 1 ! Fin $end
+$var wire 4 " Cuenta [3:0] $end
+$var reg 3 # Valor [2:0] $end
+$var reg 1 $ clk $end
+$var reg 1 % start $end
+$scope module cuenta $end
+$var wire 4 & Cuenta [3:0] $end
+$var wire 3 ' Valor [2:0] $end
+$var wire 1 $ clk $end
+$var wire 1 % start $end
+$var wire 1 ! fin $end
+$var wire 3 ( SalQ [2:0] $end
+$var wire 4 ) SalA [3:0] $end
+$var wire 1 * ResetA $end
+$var wire 4 + EntA [3:0] $end
+$var wire 1 , DesplazaQ $end
+$var wire 1 - CargaQ $end
+$var wire 1 . CargaA $end
+$scope module A $end
+$var wire 1 $ clk $end
+$var wire 4 / q [3:0] $end
+$var wire 4 0 entA [3:0] $end
+$var wire 1 * ResetA $end
+$var wire 1 . CargaA $end
+$scope module ffa0 $end
+$var wire 1 $ clk $end
+$var wire 1 1 d $end
+$var wire 1 * reset $end
+$var wire 1 . carga $end
+$var reg 1 2 q $end
+$upscope $end
+$scope module ffa1 $end
+$var wire 1 $ clk $end
+$var wire 1 3 d $end
+$var wire 1 * reset $end
+$var wire 1 . carga $end
+$var reg 1 4 q $end
+$upscope $end
+$scope module ffa2 $end
+$var wire 1 $ clk $end
+$var wire 1 5 d $end
+$var wire 1 * reset $end
+$var wire 1 . carga $end
+$var reg 1 6 q $end
+$upscope $end
+$scope module ffa3 $end
+$var wire 1 $ clk $end
+$var wire 1 7 d $end
+$var wire 1 * reset $end
+$var wire 1 . carga $end
+$var reg 1 8 q $end
+$upscope $end
+$upscope $end
+$scope module Q $end
+$var wire 1 $ clk $end
+$var wire 1 9 enable $end
+$var wire 3 : entQ [2:0] $end
+$var wire 1 ; reset $end
+$var wire 3 < q [2:0] $end
+$var wire 1 , DesplazaQ $end
+$var wire 1 - CargaQ $end
+$scope module ff0 $end
+$var wire 1 9 carga $end
+$var wire 1 $ clk $end
+$var wire 1 = inp_c $end
+$var wire 1 > inp_d $end
+$var wire 1 ; reset $end
+$var wire 1 - selc_d $end
+$var wire 1 ? q $end
+$var wire 1 @ inp $end
+$scope module ff0 $end
+$var wire 1 9 carga $end
+$var wire 1 $ clk $end
+$var wire 1 ; reset $end
+$var wire 1 @ d $end
+$var reg 1 ? q $end
+$upscope $end
+$scope module mux0 $end
+$var wire 1 > a $end
+$var wire 1 = b $end
+$var wire 1 @ out $end
+$var wire 1 A s_n $end
+$var wire 1 B sa $end
+$var wire 1 C sb $end
+$var wire 1 - s $end
+$upscope $end
+$upscope $end
+$scope module ff1 $end
+$var wire 1 9 carga $end
+$var wire 1 $ clk $end
+$var wire 1 D inp_c $end
+$var wire 1 E inp_d $end
+$var wire 1 ; reset $end
+$var wire 1 - selc_d $end
+$var wire 1 F q $end
+$var wire 1 G inp $end
+$scope module ff0 $end
+$var wire 1 9 carga $end
+$var wire 1 $ clk $end
+$var wire 1 ; reset $end
+$var wire 1 G d $end
+$var reg 1 F q $end
+$upscope $end
+$scope module mux0 $end
+$var wire 1 E a $end
+$var wire 1 D b $end
+$var wire 1 G out $end
+$var wire 1 H s_n $end
+$var wire 1 I sa $end
+$var wire 1 J sb $end
+$var wire 1 - s $end
+$upscope $end
+$upscope $end
+$scope module ff2 $end
+$var wire 1 9 carga $end
+$var wire 1 $ clk $end
+$var wire 1 K inp_c $end
+$var wire 1 L inp_d $end
+$var wire 1 ; reset $end
+$var wire 1 - selc_d $end
+$var wire 1 M q $end
+$var wire 1 N inp $end
+$scope module ff0 $end
+$var wire 1 9 carga $end
+$var wire 1 $ clk $end
+$var wire 1 ; reset $end
+$var wire 1 N d $end
+$var reg 1 M q $end
+$upscope $end
+$scope module mux0 $end
+$var wire 1 L a $end
+$var wire 1 K b $end
+$var wire 1 N out $end
+$var wire 1 O s_n $end
+$var wire 1 P sa $end
+$var wire 1 Q sb $end
+$var wire 1 - s $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module sum $end
+$var wire 4 R A [3:0] $end
+$var wire 4 S B [3:0] $end
+$var wire 1 T c_in $end
+$var wire 1 U p3 $end
+$var wire 1 V p2 $end
+$var wire 1 W p1 $end
+$var wire 1 X p0 $end
+$var wire 1 Y g3 $end
+$var wire 1 Z g2 $end
+$var wire 1 [ g1 $end
+$var wire 1 \ g0 $end
+$var wire 1 ] c_out $end
+$var wire 1 ^ c4 $end
+$var wire 1 _ c3 $end
+$var wire 1 ` c2 $end
+$var wire 1 a c1 $end
+$var wire 4 b S [3:0] $end
+$var wire 4 c C [4:1] $end
+$scope module cla $end
+$var wire 4 d G [3:0] $end
+$var wire 4 e P [3:0] $end
+$var wire 1 T c_in $end
+$var wire 4 f C [4:1] $end
+$upscope $end
+$scope module fa0 $end
+$var wire 1 g a $end
+$var wire 1 h b $end
+$var wire 1 T c_in $end
+$var wire 1 a c_out $end
+$var wire 1 \ g $end
+$var wire 1 X p $end
+$var wire 1 i sum_par $end
+$var wire 1 j sum $end
+$var wire 1 k carry2 $end
+$var wire 1 l carry1 $end
+$scope module ha1 $end
+$var wire 1 g a $end
+$var wire 1 h b $end
+$var wire 1 l carry $end
+$var wire 1 i sum $end
+$upscope $end
+$scope module ha2 $end
+$var wire 1 T a $end
+$var wire 1 i b $end
+$var wire 1 k carry $end
+$var wire 1 j sum $end
+$upscope $end
+$upscope $end
+$scope module fa1 $end
+$var wire 1 m a $end
+$var wire 1 n b $end
+$var wire 1 o c_in $end
+$var wire 1 ` c_out $end
+$var wire 1 [ g $end
+$var wire 1 W p $end
+$var wire 1 p sum_par $end
+$var wire 1 q sum $end
+$var wire 1 r carry2 $end
+$var wire 1 s carry1 $end
+$scope module ha1 $end
+$var wire 1 m a $end
+$var wire 1 n b $end
+$var wire 1 s carry $end
+$var wire 1 p sum $end
+$upscope $end
+$scope module ha2 $end
+$var wire 1 o a $end
+$var wire 1 p b $end
+$var wire 1 r carry $end
+$var wire 1 q sum $end
+$upscope $end
+$upscope $end
+$scope module fa2 $end
+$var wire 1 t a $end
+$var wire 1 u b $end
+$var wire 1 v c_in $end
+$var wire 1 _ c_out $end
+$var wire 1 Z g $end
+$var wire 1 V p $end
+$var wire 1 w sum_par $end
+$var wire 1 x sum $end
+$var wire 1 y carry2 $end
+$var wire 1 z carry1 $end
+$scope module ha1 $end
+$var wire 1 t a $end
+$var wire 1 u b $end
+$var wire 1 z carry $end
+$var wire 1 w sum $end
+$upscope $end
+$scope module ha2 $end
+$var wire 1 v a $end
+$var wire 1 w b $end
+$var wire 1 y carry $end
+$var wire 1 x sum $end
+$upscope $end
+$upscope $end
+$scope module fa3 $end
+$var wire 1 { a $end
+$var wire 1 | b $end
+$var wire 1 } c_in $end
+$var wire 1 ^ c_out $end
+$var wire 1 Y g $end
+$var wire 1 U p $end
+$var wire 1 ~ sum_par $end
+$var wire 1 !" sum $end
+$var wire 1 "" carry2 $end
+$var wire 1 #" carry1 $end
+$scope module ha1 $end
+$var wire 1 { a $end
+$var wire 1 | b $end
+$var wire 1 #" carry $end
+$var wire 1 ~ sum $end
+$upscope $end
+$scope module ha2 $end
+$var wire 1 } a $end
+$var wire 1 ~ b $end
+$var wire 1 "" carry $end
+$var wire 1 !" sum $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module uc0 $end
+$var wire 1 $ clk $end
+$var wire 1 $" q0 $end
+$var wire 1 % start $end
+$var wire 1 * ResetA $end
+$var wire 1 ! Fin $end
+$var wire 1 , DesplazaQ $end
+$var wire 1 - CargaQ $end
+$var wire 1 . CargaA $end
+$var reg 3 %" nextstate [2:0] $end
+$var reg 3 &" state [2:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx &"
+bx %"
+x$"
+x#"
+x""
+x!"
+x~
+x}
+0|
+x{
+xz
+xy
+xx
+xw
+xv
+0u
+xt
+xs
+xr
+xq
+xp
+xo
+0n
+xm
+xl
+xk
+xj
+xi
+1h
+xg
+bx f
+bx1 e
+b0x d
+bx c
+bx b
+xa
+x`
+x_
+x^
+x]
+x\
+0[
+0Z
+0Y
+1X
+xW
+xV
+xU
+0T
+b1 S
+bx R
+0Q
+0P
+xO
+0N
+xM
+0L
+0K
+0J
+xI
+xH
+xG
+xF
+xE
+0D
+0C
+xB
+xA
+x@
+x?
+x>
+0=
+bx <
+0;
+b0 :
+x9
+x8
+x7
+x6
+x5
+x4
+x3
+x2
+x1
+bx 0
+bx /
+x.
+x-
+x,
+bx +
+x*
+bx )
+bx (
+b0 '
+bx &
+0%
+0$
+b0 #
+bx "
+x!
+$end
+#1000
+1%
+1$
+#2000
+0$
+#3000
+1$
+#4000
+0$
+#5000
+1$
+#6000
+0$
+#7000
+1$
+#8000
+0$
+#9000
+1$
+#10000
+0$
+#11000
+xC
+1=
+1$
+b1 #
+b1 '
+b1 :
+#12000
+0$
+#13000
+1$
+#14000
+0$
+#15000
+1$
+#16000
+0$
+#17000
+1$
+#18000
+0$
+#19000
+1$
+#20000
+0$
+#21000
+1$
+0%
+#22000
+0$
+#23000
+1$
+#24000
+0$
+#25000
+1$
+#26000
+0$
+#27000
+1$
+#28000
+0$
+#29000
+1$
+#30000
+0$
+#31000
+1$
+#32000
+0$
+1%
+#33000
+1$
+#34000
+0$
+#35000
+1$
+#36000
+0$
+#37000
+1$
+#38000
+0$
+#39000
+1$
+#40000
+0$
+#41000
+1$
+#42000
+0C
+xJ
+0=
+1D
+0$
+b10 #
+b10 '
+b10 :
+#43000
+1$
+#44000
+0$
+#45000
+1$
+#46000
+0$
+#47000
+1$
+#48000
+0$
+#49000
+1$
+#50000
+0$
+#51000
+1$
+#52000
+0$
+0%
+#53000
+1$
+#54000
+0$
+#55000
+1$
+#56000
+0$
+#57000
+1$
+#58000
+0$
+#59000
+1$
+#60000
+0$
+#61000
+1$
+#62000
+0$
+#63000
+1$
+1%
+#64000
+0$
+#65000
+1$
+#66000
+0$
+#67000
+1$
+#68000
+0$
+#69000
+1$
+#70000
+0$
+#71000
+1$
+#72000
+0$
+#73000
+xC
+1=
+1$
+b11 #
+b11 '
+b11 :
+#74000
+0$
+#75000
+1$
+#76000
+0$
+#77000
+1$
+#78000
+0$
+#79000
+1$
+#80000
+0$
+#81000
+1$
+#82000
+0$
+#83000
+1$
+0%
+#84000
+0$
+#85000
+1$
+#86000
+0$
+#87000
+1$
+#88000
+0$
+#89000
+1$
+#90000
+0$
+#91000
+1$
+#92000
+0$
+#93000
+1$
+#94000
+0$
+1%
+#95000
+1$
+#96000
+0$
+#97000
+1$
+#98000
+0$
+#99000
+1$
+#100000
+0$
+#101000
+1$
+#102000
+0$
+#103000
+1$
+#104000
+xN
+0C
+0J
+xQ
+0=
+0D
+1K
+0$
+b100 #
+b100 '
+b100 :
+#105000
+1$
+#106000
+0$
+#107000
+1$
+#108000
+0$
+#109000
+1$
+#110000
+0$
+#111000
+1$
+#112000
+0$
+#113000
+1$
+#114000
+0$
+0%
+#115000
+1$
+#116000
+0$
+#117000
+1$
+#118000
+0$
+#119000
+1$
+#120000
+0$
+#121000
+1$
+#122000
+0$
+#123000
+1$
+#124000
+0$
+#125000
+1$
+1%
+#126000
+0$
+#127000
+1$
+#128000
+0$
+#129000
+1$
+#130000
+0$
+#131000
+1$
+#132000
+0$
+#133000
+1$
+#134000
+0$
+#135000
+xC
+1=
+1$
+b101 #
+b101 '
+b101 :
+#136000
+0$
+#137000
+1$
+#138000
+0$
+#139000
+1$
+#140000
+0$
+#141000
+1$
+#142000
+0$
+#143000
+1$
+#144000
+0$
+#145000
+1$
+0%
+#146000
+0$
+#147000
+1$
+#148000
+0$
+#149000
+1$
+#150000
+0$
+#151000
+1$
+#152000
+0$
+#153000
+1$
+#154000
+0$
+#155000
+1$
+#156000
+0$
+1%
+#157000
+1$
+#158000
+0$
+#159000
+1$
+#160000
+0$
+#161000
+1$
+#162000
+0$
+#163000
+1$
+#164000
+0$
+#165000
+1$
+#166000
+0C
+xJ
+0=
+1D
+0$
+b110 #
+b110 '
+b110 :
+#167000
+1$
+#168000
+0$
+#169000
+1$
+#170000
+0$
+#171000
+1$
+#172000
+0$
+#173000
+1$
+#174000
+0$
+#175000
+1$
+#176000
+0$
+0%
+#177000
+1$
+#178000
+0$
+#179000
+1$
+#180000
+0$
+#181000
+1$
+#182000
+0$
+#183000
+1$
+#184000
+0$
+#185000
+1$
+#186000
+0$
+#187000
+1$
+1%
+#188000
+0$
+#189000
+1$
+#190000
+0$
+#191000
+1$
+#192000
+0$
+#193000
+1$
+#194000
+0$
+#195000
+1$
+#196000
+0$
+#197000
+xC
+1=
+1$
+b111 #
+b111 '
+b111 :
+#198000
+0$
+#199000
+1$
+#200000
+0$
+#201000
+1$
+#202000
+0$
+#203000
+1$
+#204000
+0$
+#205000
+1$
+#206000
+0$
+#207000
+1$
+0%
+#208000
+0$
+#209000
+1$
+#210000
+0$
+#211000
+1$
+#212000
+0$
+#213000
+1$
+#214000
+0$
+#215000
+1$
+#216000
+0$
+#217000
+1$
+#218000
+0$
+#219000
+1$
+#220000
+0$
+#221000
+1$
+#222000
+0$
+#223000
+1$
+#224000
+0$
+#225000
+1$
+#226000
+0$
+#227000
+1$
