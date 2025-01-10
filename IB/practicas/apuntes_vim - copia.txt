@@ -1,0 +1,46 @@
+Comenzar la edición de un fichero de texto en vi usando la ruta (path) absoluta del fichero
+vim ....
+
+Desplazarse dentro del fichero en todas las direcciones (líneas arriba/abajo y derecha/izquierda dentro de cada línea
+j (abajo) l (derecha) k (arriba) h (izquierda)
+
+Desplazarse al final/principio (primera/última línea) del fichero
+mayus g (final) gg (principio)
+
+Desplazarse al principio/final de una determinada línea
+0 (principio) mayus 4 (final) Numero y mayus G
+
+Desplazarse en una línea de texto a la izquierda/derecha avanzando de palabra en palabra
+w
+
+Desplazarse una página arriba/abajo dentro del fichero
+control e (hacia abajo) control y (hacia arriba)
+
+Reemplazar un carácter por otro en una determinada línea del fichero
+r y la letra (rx)
+
+Borrar una línea del fichero
+dd o c$ desde el principio
+
+Borrar un rango de líneas (desde la línea N a la N+M)
+x,xd
+
+Copiar una línea de texto (o un rango de líneas) en el buffer para luego insertar esas mismas líneas en una posición diferente
+dd y despues p
+Buscar una determinada palabra dentro del fichero
+/palabra
+
+Reemplazar todas las apariciones de una determinada palabra por otra diferente
+:s/palabra/nuevapalabra/g
+
+Mostrar/ocultar los números de línea en el fichero
+:set nu
+
+Deshacer la acción realizada por el último comando ejecutado en el editor
+u (U en esa linea)
+
+Rehacer la última acción desechada
+Control R
+
+Abandonar la edición del fichero de diferentes modos: habiendo grabado (escrito) la sesión o sin grabar
+:q (sin guardar) :qw (salir y guardar)
