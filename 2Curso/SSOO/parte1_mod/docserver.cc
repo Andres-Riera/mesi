@@ -23,7 +23,6 @@ int main(int argc, char* argv[]) {
     // ...
     return EXIT_FAILURE;
   }
-
   // Usar options.value() para acceder a las opciones...
   if (options.value().show_help) {
     std::cout << "Uso: " << argv[0] << " <opciones> <archivo>" << std::endl;
@@ -47,7 +46,7 @@ int main(int argc, char* argv[]) {
         std::string header = "403 Forbidden";
         send_response(header, "");
       }
-      return EXIT_FAILURE;
+      return EXIT_SUCCESS;
   }
   if(options.value().verbose) {
     std::cerr << "read: se leen " << fd.value().get_size() << " bytes del archivo \"" << options.value().output_filename << "\"" << std::endl;
@@ -55,7 +54,9 @@ int main(int argc, char* argv[]) {
   std::string header = std::format("Content-Length: {}\n", fd.value().get_size());
   
   send_response(header, fd.value().get());
-  
+  if (options.value().show_fileroute) {
+    std::cout << "\n" << options.value().output_filename << std::endl;
+  }
 
   return EXIT_SUCCESS;
 }

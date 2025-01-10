@@ -22,6 +22,7 @@ enum class parse_args_errors {
 struct program_options {
   bool show_help = false;
   bool verbose = false;
+  bool show_fileroute = false;
   std::string output_filename;
 
   std::vector<std::string> additional_args;
@@ -40,6 +41,9 @@ std::expected<program_options, parse_args_errors> parse_args(int argc, char* arg
     }
     else if (*it == "-p" || *it == "--puerto") {
       options.verbose = true;
+    }
+    else if (*it == "-i") {
+      options.show_fileroute = true;
     }
     else {
       if (it != end) {
@@ -73,9 +77,8 @@ std::expected<SafeMap, int> read_all(const std::string& path) {
   void* mem = mmap(nullptr, file_size, PROT_READ, MAP_PRIVATE, fd, 0);
   if (mem == MAP_FAILED) {
     // Error al mapear el archivo...
-    int error = errno;
     close(fd);
-    return std::unexpected(error);
+    return std::unexpected(errno);
   }
 
   // Opcionalmente, se puede cerrar el descriptor del archivo si ya no se necesita.

@@ -35,9 +35,7 @@ class SafeMap {
     return os;
   }
   ~SafeMap() noexcept {
-    if (sv_.data() != nullptr && sv_.size() > 0) {
-      munmap(const_cast<char*>(sv_.data()), sv_.size());
-    }
+    munmap(const_cast<char*>(sv_.data()), sv_.size());
   }
   [[nodiscard]] bool is_valid() const noexcept {
     return sv_.data() != nullptr;

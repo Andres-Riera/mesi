@@ -8,9 +8,11 @@
 #include <unistd.h> 
 #include <string.h>
 #include <cstdlib>
+#include <sstream>
 
 
 #include "safemap.h"
+#include "exec_environment.h"
 
 #define ESUCCESS 0
 
@@ -23,9 +25,12 @@ struct program_options {
   bool show_help = false;
   bool verbose = false;
   bool b_puerto = false;
-  uint16_t puerto = 8080;
+  bool b_ruta = false;
 
-  std::string output_filename;
+  bool b_echo = false;
+
+  std::string ruta;
+  uint16_t puerto = 8080;
 };
 
 
@@ -36,8 +41,12 @@ std::expected<program_options, parse_args_errors> parse_args(int argc, char* arg
     if (*it == "-h" || *it == "--help") {
       options.show_help = true;
     }
+
     else if (*it == "-v" || *it == "--verbose") {
       options.verbose = true;
+    }
+    else if (*it == "-e" || *it == "--echo") { // modificación
+      options.b_echo = true;
     }
     else if (*it == "-p" || *it == "--puerto") {
       options.b_puerto = true;
@@ -56,18 +65,27 @@ std::expected<program_options, parse_args_errors> parse_args(int argc, char* arg
         return std::unexpected(parse_args_errors::missing_argument);
       }
     }
-    else {
-      if (it + 1 == end) {
-        options.output_filename = *it;
+
+    else if (*it == "-b" || *it == "--base") {
+      options.b_ruta = true;
+      if (++it != end) {
+        if(!it->starts_with("-")) {
+          options.ruta = std::string(*it);
+        }
+        else {
+        return std::unexpected(parse_args_errors::missing_argument);
+        }
       }
       else {
-        return std::unexpected(parse_args_errors::unknown_option);
+        return std::unexpected(parse_args_errors::missing_argument);
       }
     }
+
+    else {
+     return std::unexpected(parse_args_errors::unknown_option);
+    }
   }
-  if (options.output_filename == "" && options.show_help == 0) {
-    return std::unexpected(parse_args_errors::missing_argument);
-  }
+
   return options;
 }
 
@@ -174,4 +192,117 @@ std::expected<SafeFD, int> accept_connection(const SafeFD& socket, sockaddr_in& 
     return std::unexpected(errno);
   }
   return SafeFD(new_fd);
+}
+
+std::expected<std::string, int> receive_request(const SafeFD& socket, size_t max_size) {
+  std::string message_text;
+  message_text.resize(max_size);
+  int bytes_read = recv(socket.get(), message_text.data(), message_text.size(), 0);
+  if (bytes_read < 0) {
+    // Error al recibir el mensaje...
+    return std::unexpected(errno);
+  }
+  return std::string(message_text);
+}
+
+struct execute_program_error {
+  int exit_code;
+  int error_code;
+};
+
+std::expected<std::string, execute_program_error> execute_program(const std::string& path, const exec_environment& env) {
+
+  int es_ejecutable = access(path.c_str(), X_OK);
+  if (es_ejecutable < 0) {
+    return std::unexpected(execute_program_error(127, errno));
+  }
+
+  char* args[] = { nullptr };
+  const size_t tam_buffer {256};
+  int pipefd[2];
+  int result_pipe = pipe(pipefd);
+  if (result_pipe < 0) {
+    return std::unexpected(execute_program_error(127, errno));
+  }
+  pid_t pid = fork();
+
+  if (pid == 0) {
+    // Proceso hijo
+    close(pipefd[0]);
+    int dup2_result = dup2(pipefd[1], 1);
+    if (dup2_result < 0) {
+      int error = errno;
+      close(pipefd[1]);
+      return std::unexpected(execute_program_error(127, error));
+    }
+    // variables de entorno
+    std::string request_path = "REQUEST_PATH=" + env.get_path();
+    std::string server_basedir = "SERVER_BASEDIR=" + env.get_base_dir();
+    std::string remote_port = "REMOTE_PORT=" + env.get_port();
+    std::string remote_ip = "REMOTE_IP=" + env.get_ip();
+
+    const char* var_entorno[] = {request_path.c_str(), server_basedir.c_str(),remote_port.c_str(),
+                                 remote_ip.c_str(), nullptr};
+    // exec
+    execve(path.c_str(), args, const_cast<char* const*>(var_entorno));
+    // fallo en exec
+    close(pipefd[1]);
+    _exit(EXIT_FAILURE);
+  }
+  else if (pid > 0) {
+    // Proceso padre
+    int status {};
+    close(pipefd[1]);
+    int waitpid_result = waitpid(pid, &status, 0);
+    if (waitpid_result == -1) {
+      int error = errno;
+      close(pipefd[1]);
+      return std::unexpected(execute_program_error(127, error));
+    }
+    else if (WIFEXITED(status)) {
+      // Terminación normal del proceso hijo
+      if (WEXITSTATUS(status) == EXIT_SUCCESS) {
+        // Terminación sin errores del proceso hijo
+        std::array<char, tam_buffer> buffer {};
+        bool flag {true};
+        std::string listen {};
+        while (flag) {
+          ssize_t nbytes = read(pipefd[0], buffer.data(), tam_buffer);
+          if (nbytes < 0) {
+            int error = errno;
+            close(pipefd[0]);
+            return std::unexpected(execute_program_error(127, error));
+          }
+          else {
+            listen.append(buffer.data(), 0, static_cast<size_t>(nbytes));
+              if (nbytes < static_cast<ssize_t>(tam_buffer)) {
+                flag = false; // Datos agotados
+              }
+          }
+        }
+        close(pipefd[0]);
+        return listen; 
+        }
+        else {
+          // Terminación con errores del proceso hijo
+          close(pipefd[0]);
+          std::cerr << "Proceso hijo termina con errores\n";
+          std::unexpected(execute_program_error(WEXITSTATUS(status), 0));
+        }
+      }
+      else {
+      // Terminación forzada del proceso hijo
+      std::cerr << "Terminación anormal del proceso hijo\n";
+      return std::unexpected(execute_program_error(EXIT_SUCCESS, EXIT_SUCCESS));
+      }
+  }
+
+  else {
+    // Error en fork()
+    int error = errno;
+    close(pipefd[0]);
+    close(pipefd[1]);
+    return std::unexpected(execute_program_error(127, error));
+  }
+  return std::unexpected(execute_program_error{127, -1});
 }

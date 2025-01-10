@@ -22,9 +22,7 @@ class SafeMap {
   }
   SafeMap& operator=(SafeMap&& other) noexcept {
     if (this != &other && sv_ != other.sv_) {
-      // Cerrar el descriptor de archivo actual
       munmap(const_cast<char*>(sv_.data()), sv_.size());
-      // Mover el descriptor de archivo de 'other' a este objeto
       sv_ = other.sv_;
       other.sv_ = std::string_view(nullptr, 0);
     }
@@ -35,7 +33,9 @@ class SafeMap {
     return os;
   }
   ~SafeMap() noexcept {
-    munmap(const_cast<char*>(sv_.data()), sv_.size());
+    if (sv_.data() != nullptr && sv_.size() > 0) {
+      munmap(const_cast<char*>(sv_.data()), sv_.size());
+    }
   }
   [[nodiscard]] bool is_valid() const noexcept {
     return sv_.data() != nullptr;
