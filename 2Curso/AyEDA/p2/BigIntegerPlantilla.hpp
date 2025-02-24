@@ -270,6 +270,7 @@ BigInteger<Base> BigInteger<Base>::operator%(const BigInteger<Base>& number) con
 }
 
 // Especialización para la base 2
+/*
 template<>
 class BigInteger<2> {
  public:
@@ -295,7 +296,28 @@ class BigInteger<2> {
  private:
   std::vector<bool> digits_;
   bool is_negative_;
+  void Complement2_();
 };
+
+void BigInteger<2>::Complement2_() {
+  for (bool bit : digits_) {
+    bit = !bit;
+  }
+  bool carry = true;
+  for (int i = 0; i < digits_.size() && carry; ++i) {
+    if (!digits_[i]) {
+      digits_[i] = true;
+      carry = false;
+    }
+    else{
+      digits_[i] = false;
+    }
+  }
+  if (carry) {
+    digits_.push_back(true);
+  }
+  is_negative_ = !is_negative_;
+}
 
 BigInteger<2>::BigInteger(int n) {
   if (n < 0) {
@@ -396,18 +418,8 @@ bool operator<(const BigInteger<2> &number1, const BigInteger<2> &number2) {
 }
 
 BigInteger<2> &BigInteger<2>::operator++() {
-  bool carry = true;
-  for (auto &bit : digits_) {
-    bool new_bit = bit ^ carry;
-    carry = bit & carry;
-    bit = new_bit;
-    if (!carry) {
-      break;
-    }
-  }
-  if (carry) {
-    digits_.push_back(true);
-  }
+  BigInteger<2> one(1);
+  *this = *this + one;
   return *this;
 }
 
@@ -418,18 +430,8 @@ BigInteger<2> BigInteger<2>::operator++(int) {
 }
 
 BigInteger<2> &BigInteger<2>::operator--() {
-  bool carry = true;
-  for (bool bit : digits_) {
-    bool new_bit = bit ^ carry;
-    carry = !bit & carry;
-    bit = new_bit;
-    if (!carry) {
-      break;
-    }
-  }
-  if (digits_.back() == false) {
-    digits_.pop_back();
-  }
+  BigInteger<2> one(1);
+  *this = *this - one;
   return *this;
 }
 
@@ -443,7 +445,7 @@ BigInteger<2> operator+(const BigInteger<2> &number1, const BigInteger<2> &numbe
   BigInteger<2> result;
   result.digits_.resize(std::max(number1.digits_.size(), number2.digits_.size()));
   bool carry = false;
-  for (size_t i = 0; i < result.digits_.size(); ++i) {
+  for (int i = 0; i < result.digits_.size(); ++i) {
     bool bit1 = i < number1.digits_.size() ? number1.digits_[i] : false;
     bool bit2 = i < number2.digits_.size() ? number2.digits_[i] : false;
     result.digits_[i] = bit1 ^ bit2 ^ carry;
@@ -452,27 +454,21 @@ BigInteger<2> operator+(const BigInteger<2> &number1, const BigInteger<2> &numbe
   if (carry) {
     result.digits_.push_back(true);
   }
+  result.is_negative_ = number1.is_negative_ && number2.is_negative_;
   return result;
 }
 
 BigInteger<2> BigInteger<2>::operator-(const BigInteger<2> &number) const {
   BigInteger<2> complement = number;
-  for (auto &bit : complement.digits_) {
-    bit = !bit;
-  }
-  ++complement;
+  complement.Complement2_();
   return *this + complement;
 }
 
 BigInteger<2> BigInteger<2>::operator*(const BigInteger<2> &number) const {
   BigInteger<2> result;
   result.digits_.resize(digits_.size() + number.digits_.size());
-  for (size_t i = 0; i < digits_.size(); ++i) {
-    if (digits_[i]) {
-      for (size_t j = 0; j < number.digits_.size(); ++j) {
-        result.digits_[i + j] ^= number.digits_[j];
-      }
-    }
+  for (BigInteger<2> i {0}; i < number; i++) {
+    result = result + *this;
   }
   return result;
 }
@@ -481,20 +477,11 @@ BigInteger<2> operator/(const BigInteger<2> &number1, const BigInteger<2> &numbe
   if (number2 == BigInteger<2>(0)) {
     throw std::invalid_argument("Division by zero is not allowed.");
   }
-  BigInteger<2> result;
-  BigInteger<2> remainder = number1;
-  BigInteger<2> divisor = number2;
-  while (remainder >= divisor) {
-    BigInteger<2> temp = divisor;
-    size_t shift = remainder.digits_.size() - divisor.digits_.size();
-    temp.digits_.insert(temp.digits_.begin(), shift, false);
-    if (remainder < temp) {
-      temp.digits_.erase(temp.digits_.begin());
-      --shift;
-    }
-    remainder = remainder - temp;
-    result.digits_.insert(result.digits_.begin(), shift, false);
-    result.digits_[shift] = true;
+  BigInteger<2> result {0};
+  BigInteger<2> copy = number1;
+  while (!(copy < number2)) {
+    copy = copy - number2;
+    result++;
   }
   return result;
 }
@@ -503,17 +490,10 @@ BigInteger<2> BigInteger<2>::operator%(const BigInteger<2> &number) const {
   if (number == BigInteger<2>(0)) {
     throw std::invalid_argument("Division by zero is not allowed.");
   }
-  BigInteger<2> remainder = *this;
-  BigInteger<2> divisor = number;
-  while (remainder >= divisor) {
-    BigInteger<2> temp = divisor;
-    size_t shift = remainder.digits_.size() - divisor.digits_.size();
-    temp.digits_.insert(temp.digits_.begin(), shift, false);
-    if (remainder < temp) {
-      temp.digits_.erase(temp.digits_.begin());
-      --shift;
-    }
-    remainder = remainder - temp;
+  BigInteger<2> copy {*this};
+  while (!(copy < number)) {
+    copy = copy - number;
   }
-  return remainder;
+  return copy;
 }
+*/
