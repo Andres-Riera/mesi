@@ -74,7 +74,8 @@ void BigRational<Base>::Simplify_() {
   BigUnsigned<Base> numerator = numerator_.GetUnsigned();
   BigUnsigned<Base> denominator = denominator_;
   BigUnsigned<Base> mcd = mcd_(numerator, denominator);
-  numerator_ = numerator / mcd;
+  BigInteger<Base> aux(mcd);
+  numerator_ = numerator_ / aux;
   denominator_ = denominator / mcd;
 }
 
