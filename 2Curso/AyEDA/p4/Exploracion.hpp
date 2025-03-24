@@ -41,13 +41,9 @@ class DoubleExploration : public ExplorationFunction<Key> {
 template <class Key>
 class ReDispersionExploration : public ExplorationFunction<Key> {
  public:
-  ReDispersionExploration(DispersionFunction<Key>& dispersion) : dispersionFunction(dispersion) {}
+  ReDispersionExploration(DispersionFunction<Key>& dispersion, unsigned size) : dispersionFunction(dispersion), tableSize(size) {}
   unsigned operator()(const Key& k, unsigned i) const override {
     return (dispersionFunction(k) + i) % tableSize;
-  }
-
-  void setTableSize(unsigned tableSize) {
-    tableSize = tableSize;
   }
 
  private:

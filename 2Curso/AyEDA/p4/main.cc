@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
         explorationFunction = new DoubleExploration<nif>(*dispersionFunction);
         break;
       case 4:
-        explorationFunction = new ReDispersionExploration<nif>(*dispersionFunction);
+        explorationFunction = new ReDispersionExploration<nif>(*dispersionFunction, tableSize);
         break;
       default:
         std::cerr << "Código de función de exploración no válido.\n";
