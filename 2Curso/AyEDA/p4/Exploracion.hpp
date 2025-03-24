@@ -41,13 +41,16 @@ class DoubleExploration : public ExplorationFunction<Key> {
 template <class Key>
 class ReDispersionExploration : public ExplorationFunction<Key> {
  public:
-  ReDispersionExploration() {}
+  ReDispersionExploration(DispersionFunction<Key>& dispersion) : dispersionFunction(dispersion) {}
   unsigned operator()(const Key& k, unsigned i) const override {
-    srand(k);
-    unsigned displacement = 0;
-    for (unsigned j = 0; j <= i; ++j) {
-      displacement = std::rand();
-    }
-    return displacement;
+    return (dispersionFunction(k) + i) % tableSize;
   }
+
+  void setTableSize(unsigned tableSize) {
+    tableSize = tableSize;
+  }
+
+ private:
+  DispersionFunction<Key>& dispersionFunction; 
+  unsigned tableSize;
 };
